@@ -1,0 +1,592 @@
+/* General */
+*{
+    transition: 0.1s;
+    clear: both;
+    outline-color: darkblue;
+    outline-width: 0.1px;
+    /* VARIABLES */
+    --color: lightblue;
+    --b: 1px solid var(--color);
+    --usevideo: flex;
+    /* end VARIABLES */
+}
+
+body{
+    font: 1.4rem math;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 10px;
+    margin: 30px;
+}
+
+[disabled]{
+    filter: blur(1px) grayscale(.5);
+}
+
+/* buttons  */
+button, #SAY{
+    color: var(--color);
+    background: transparent;
+    font-size: 0.8em;
+    border: thin lightblue;
+    padding: 5px;
+    cursor: pointer;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    /* box-sizing: content-box; */
+}
+
+button:hover, button:active{
+    padding: 10px;
+    border: 1px solid lightblue;
+    border-radius: 0.8em;
+}
+button:active{
+    background-color: var(--color);
+    color: white;
+}
+
+/* icon buttons */
+.icon{
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+}
+.icon:hover, .icon:focus, .icon:active{
+    padding: 0;
+    border-radius: 1em;
+}
+/* #ADDQUESTION{
+    background-image: url("/static/plus.png");
+}
+#RESTOREQUESTION{
+    background-image: url("/static/undo.png");
+} */
+/* end icon buttons */
+
+/* major buttons */
+.major{
+    background: var(--color);
+    color: white;
+    font-size: 1em;
+    border-radius: 0.5em;
+    padding: 10px 20px;
+    margin: 5px;
+    text-align: center;
+    display: block;
+    justify-self: center;
+    margin-top: 20px;
+}
+.major:hover, .major:active{
+    padding: 10px 20px;
+    background-color: blue;
+    border-radius: 0.5em;
+}
+.major:active{
+    background-color: rgb(0, 0, 127);
+}
+/* end major buttons */
+
+/* end buttons */
+
+/* input text */
+[type="text"], textarea, [type="number"]{
+    padding: 7px 0;
+    border: none;
+    border-bottom: var(--b);
+    border-width: 2px;
+    width: fit-content;
+    color: gray;
+    font-size: 0.9em;
+}
+[type="text"]:hover, textarea:hover{
+    border-color: blue
+}
+[type="text"]:active, [type="text"]:focus, textarea:active, textarea:focus{
+    border-color: darkblue;
+    outline: none;
+}
+/* end input text */
+
+/* More specific general */
+#REFRESHER{
+    position: absolute;
+    float: right;
+    align-self: flex-end;
+}
+
+h2{
+    border-bottom: var(--b);
+    margin: 0;
+    padding: 5px;
+}
+
+#ERRORS{
+    color: darkred;
+    text-align: center;
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0.1em;
+    max-width: 90%;
+    overflow-wrap: break-word;
+}
+#ACCESSORIES{
+    display: none;
+}
+
+/* LOADING */
+#LOADING, #LOADING:before{
+    width: 80px;
+    height: 80px;
+    border: none;
+    position: fixed;
+    top: calc(50vh - 40px);
+    left: calc(50vw - 40px);
+    z-index: 20;
+    margin: 0;
+}
+#LOADING:before{
+    content: var(--content);
+    font-size: 0.7em;
+    text-align: center;
+    padding-top: 50%;
+    color: white;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 0;
+    background: rgb(0 0 0 / 60%);
+}
+#LOADING>div{
+    width: 16px;
+    height: 16px;
+    border-radius: 32px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 10px);
+    opacity: 0;
+    z-index: 21;
+    animation: blink 0.8s cubic-bezier(0, 0, 1, -0.12) infinite;
+}
+@keyframes blink{
+    0%{opacity: 1}
+    50%{opacity: 0}
+}
+#c0{transform: translate(0px, 0px);}
+#c1{transform: translate(20px, 11px);}
+#c2{transform: translate(30px, 30px)}
+#c3{transform: translate(20px, 50px)}
+#c4{transform: translate(0px, 60px)}
+#c5{transform: translate(-20px, 50px)}
+#c6{transform: translate(-30px, 30px)}
+#c7{transform: translate(-20px, 11px);}
+/* end LOADING */
+
+/* INTERVIEW CONTROLS */
+#CONTROLS{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
+}
+#CONTROLS.side{
+    flex-flow: column;
+    align-items: end;
+    grid-area: ctrl;
+}
+#CONTROLS>button, #SAY{
+    border-right: var(--b);
+    gap: 0px
+}
+#CONTROLS.side>button, #CONTROLS.side>div:not(.switchold){
+    border: none;
+    border-bottom: var(--b);
+}
+#SAY>*{
+    gap: 0px;
+    margin: 0;
+    font-size: 1em;
+}
+#CONTROLS select{
+    padding: 2px 15px 2px 10px;
+    background-color: var(--color);
+    color: white;
+    border: none;
+    border-radius: 0.2em;
+    width: 1em;
+    cursor: pointer;
+}
+#CONTROLS select:active{
+    background-color: blue;
+}
+select:active, select:focus{
+    outline: none;
+}
+#CONTROLS option{
+    text-transform: uppercase;
+    border-radius: 1em;
+    padding: 51px;
+}
+#CONTROLS option:hover{
+    background-color: red;
+}
+/* end INTERVIEW CONTROLS */
+
+/* Modals */
+.modal{
+    border: var(--b);
+    border-width: 3px;
+    border-radius: 0.8em;
+    flex-flow: row;
+    width: 18em;
+    max-width: 80vw;
+    position: fixed;
+    left: calc(50% - 9em);
+    flex-wrap: wrap;
+    z-index: 23;
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    transform: scale(0);
+    align-items: center;
+    justify-content: space-evenly;
+}
+.modal.shown{
+    display: flex;
+    transform: scale(1);
+}
+.modal.shown.blink{
+    border-color: red;
+}
+.modal>p{
+    width: -webkit-fill-available;
+    text-align: center;
+    border: var(--b);
+    border-radius: 0.3em;
+    padding: 5px;
+    margin: 0;
+    max-height: 5em;
+    overflow-y: scroll;
+}
+/* end Modals */
+
+/* end More specific general */
+
+
+
+
+/* end General */
+
+/* SETUP SCREEN */
+body>div{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    gap: 10px;
+}
+#SETUPDESC{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--b);
+}
+#SETUPDESC>button{
+    font-size: 1em;
+}
+h4{
+    margin: 0;
+    padding: 0;
+}
+#AIGEN{
+    margin: 0;
+    padding: 0;
+}
+#AIGEN ul{
+    display: flex;
+    flex-flow: column;
+    margin: 10px 0;
+    list-style-type: none;
+    padding: 0;
+    gap: 5px;
+}
+#TOPICHOLD{
+    display: flex;
+    flex-flow: column;
+}
+#AIGEN [type="text"], #AIGEN textarea{
+    resize: none;
+    width: 100%;
+}
+#AIGEN textarea{
+    height: 50vh;
+}
+#QUESTIONLIST{
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+    list-style-type: decimal;
+}
+#AIGEN[aria-sort="topic"] #TEXTHOLD{
+    display: none;
+}
+#AIGEN[aria-sort="text"] #TOPICHOLD{
+    display: none;
+}
+#QUESTNUMBER{
+    text-align: right;
+}
+
+#QUESTIONLIST>li{
+    flex-flow: row;
+    align-items: center;
+    position: relative;
+    flex-wrap: nowrap;
+    max-width: 100%;
+}
+#QUESTIONLIST>li.highlight{
+    border: var(--b);
+    border-radius: 1em;
+}
+#QUESTIONLIST>li [type="text"]{
+    display: inline-block;
+    width: 70%;
+}
+#QUESTIONLIST>li button{
+    float: right; clear: left;
+    outline-color: red;
+}
+#SHOULDVIDEO, #AISWITCHOLD{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.switchold{
+    width: 2em;
+    height: 1em;
+    display: flex;
+    flex-flow: row;
+    justify-content: end;
+    border-radius: 40px;
+    border: var(--b);
+    border-width: 3px;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+}
+.switchold.off{
+    justify-content: start;
+    background-color: black;
+}
+.switch{
+    background-color: lightblue;
+    width: 1em;
+    height: 1em;
+    border-radius: 1em;
+}
+.switch:hover{
+    filter: drop-shadow(2px 4px 6px black);
+}
+
+#VIDEOSETTINGS{
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    border-top: var(--b);
+    border-width: 3px;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+#VIDEOSETTINGS>ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#VIDEOSETTINGS>ul>li{
+    margin-bottom: 20px;
+}
+#VOICETHINGS{
+    display: flex;
+    gap: 5px;
+    flex-flow: column-reverse;
+    align-items: start;
+}
+.searchui{
+    display: flex;
+    flex-flow: column;
+}
+.searchui>ul{
+    width: 50%;
+    font-size: 0.9em;
+    position: absolute;
+    margin-top: 2em;
+    z-index: 10;
+    padding: 10px;
+    border: var(--b);
+    border-radius: 0.5em;
+    overflow-y: scroll;
+    background-color: white;
+    height: 10em;
+}
+.searchui li{
+    cursor: pointer;
+    padding: 5px;
+    border-left: var(--b);
+}
+.searchui li:hover{
+    padding: 5px;
+    border: var(--b);
+    border-radius: 0.5em;
+}
+/* end SETUP SCREEN */
+
+/* VIDEOINTERVIEW SCREEN */
+video{
+    border-radius: 0.5em;
+    border: var(--b);
+    border-width: 10px;
+    width: 20em;
+    max-width: 90vw;
+}
+#VIDEO{
+    transform: scaleX(-1);
+}
+#CC{
+    font-size: 0.75em;
+    border-bottom: var(--b);
+    border-width: 3px;
+    padding: 0 0 5px 0;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 1.5em;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+/* end VIDEOINTERVIEW SCREEN */
+[id*="INTERVIEW"]{
+    align-items: center;
+}
+[id*="INTERVIEW"].side{
+    display: grid;
+    grid-template-areas:
+        "qBox ctrl"
+        "tBox ctrl";
+    grid-template-columns: 22em 10em;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: stretch;
+}
+/* TEXTINTERVIEW SCREEN */
+
+#TEXTINTERVIEW{
+    font-size: 0.9em;
+    align-items: center;
+    max-width: 100%;
+}
+#QUESTIONBOX{
+    width: 20em;
+    max-width: 80vw;
+    overflow-y: scroll;
+    border-radius: 0.8em;
+    padding: 20px;
+    scrollbar-width: none;
+    border: var(--b);
+    max-height: 50vh;
+    
+}
+#ANSWERBOX{
+    background-color: white;
+    font-size: 0.9em;
+    resize: none;
+    margin-top: 5px;
+    padding: 0 10px;
+    max-width: 90vw;
+}
+
+/* end TEXTINTERVIEW SCREEN */
+
+
+
+/* VIDEORESPONSE SCREEN */
+/* end VIDEORESPONSE SCREEN */
+
+
+/* TEXTRESPONSE SCREEN */
+#TEXTRESPONSE{
+    border-collapse: collapse;
+}
+th{
+    color: var(--color);
+}
+tr{
+    gap: 0;
+    border-top: var(--b);
+    width: min-content;
+}
+td{
+    padding: 10px;
+    border-left: var(--b);
+    width: fit-content;
+}
+td:nth-child(1){
+    text-align: right;
+    border-left: none;
+    border-right: var(--b);
+}
+@media print {
+    #REFRESHER, #PRINT, #SHARE, #SHAREINT{
+        display: none;
+    }
+    h2{
+        border: none;
+    }
+}
+/* end TEXTRESPONSE SCREEN */
+
+
+
+
+
+/*
+Do a 'share interview' feature.
+save all questions to a json,
+save voice
+save voice settings
+
+or save in queries that can be read (will be too long)
+
+or reroute by bitly
+
+
+*/
+
+@media screen and (max-width: 768px){
+    .modal{    
+        left: calc(50% - 40vw);
+    }
+    [id*="INTERVIEW"].side{
+        display: flex;
+    }
+}

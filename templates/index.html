@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI interview</title>
+    <link rel="shortcut icon" href="{% static 'aint.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'webint.css' %}">
+</head>
+
+<body>
+    <div id="ACCESSORIES" hidden>
+        <div id="CONTROLS">
+            <button id="PLAYORPAUSE">PAUSE</button>
+            <!-- Repeat should be the button -->
+            <div id="SAY">
+                <button>REPEAT</button>
+                <select>
+                    <option>Repeat</option>
+                    <option>Ask differently</option>
+                </select>
+            </div>
+            <button id="PREV">PREVIOUS</button>
+            <button id="NEXT">NEXT</button>
+        </div>
+        <form action="/share/" id="SHARE" method="post">
+            {% csrf_token %}
+            <div hidden="hidden">
+                {{ share_form }}
+            </div>
+            <button type="submit" id="SHARER">Share</button>
+        </form>
+    </div>
+    <p id="ERRORS">
+        {{ request.message }}
+        {% if message %}
+        <button id="SHAREINT">Share Interview</button>
+        <script>
+            (() => {
+                let data = {
+                    title: "Shared AI interview",
+                    text: "Access my AI interview through this link: {{ message }}"
+                }
+                document.getElementById("SHAREINT").onclick = () =>
+                    navigator.canShare(data) && navigator.share(data);
+            })();
+        </script>
+        {{ request.SHARED|json_script:"SHARED" }}
+        {% endif %}
+    </p>
+    <button id="REFRESHER" disabled onclick="location=location">RESTART</button>
+    <h2>AI interview</h2>
+    <div id="SETUP">
+        <form id="AIGEN" action="/ai/questions/" method="post" aria-sort="topic">
+            <h4>Use AI to generate questions.</h4>
+            <div id="AISWITCHOLD">
+                <span>Toggle between topic and text input</span>
+            </div>
+            {% csrf_token %}
+            <ul>
+                <li id="TOPICHOLD">
+                    <input id="TOPIC" name="topic" type="text" minlength="20" maxlength="100"
+                        placeholder="Enter a topic you want to be quizzed on">
+                </li>
+                <li id="TEXTHOLD">
+                    <textarea id="TEXT" name="text" minlength="200" maxlength="2000"
+                        placeholder="input text you want to be interviewed on"></textarea>
+                </li>
+                <li id="SUBMITHOLD">
+                    <label for="QUESTNUMBER">How many questions do you wish to generate: </label>
+                    <input id="QUESTNUMBER" type="number" name="questno" min="5" max="50" required>
+                    <button id="GEN">Generate questions</button>
+                </li>
+
+            </ul>
+        </form>
+        <div id="SETUPDESC">
+            <b>Add questions manually using + button</b>
+            <div>
+                <button id="ADDQUESTION" class="icon" title="Click to add a new question (Ctrl+Enter)">+</button>
+                <button id="RESTOREQUESTION" class="icon"
+                    title="Click to restore last deleted question (Ctrl+B)">R</button>
+            </div>
+        </div>
+        <ul id="QUESTIONLIST"></ul>
+        <div id="SHOULDVIDEO">
+            <span title="Toggle between text and video">Toggle video usage: </span>
+        </div>
+        <div id="VIDEOSETTINGS">
+            <ul>
+                <li>
+                    <label for="TEXT_BEFORE">Say when interview start:</label>
+                    <input type="text" id="TEXT_BEFORE">
+                </li>
+                <li>
+                    <label for="TEXT_AFTER">Say after interview ends:</label>
+                    <input type="text" id="TEXT_AFTER">
+                </li>
+            </ul>
+            <div id="VOICETHINGS">
+                <button id="TESTVOICE" title="Test current voice">TEST</button>
+                <!-- search ui for voices will go here -->
+            </div>
+        </div>
+        <button id="STARTBUTTON" class="major" title="Start interview">START</button>
+    </div>
+
+    <div id="VIDEOINTERVIEW">
+        <video id="VIDEO"></video>
+        <p id="CC">Stay focused. You can do this!</p>
+        <!-- space for controls class -->
+    </div>
+
+    <div id="TEXTINTERVIEW">
+        <p id="QUESTIONBOX"></p>
+        <textarea id="ANSWERBOX" required rows="3" cols="40" placeholder="respond here"></textarea>
+        <!-- space for controls class -->
+    </div>
+
+    <div class="response" id="TXTRESP">
+        <table id="TEXTRESPONSE">
+            <tr>
+                <th>Questions</th>
+                <th>Answers</th>
+            </tr>
+        </table>
+        <button id="PRINT" onclick="print()" class="major" title="Print table">PRINT</button>
+    </div>
+
+    <div class="response" id="VIDRESP">
+        <video id="VIDEORESPONSE" controls></video>
+        <button id="SAVE" class="major" title="Save video in web movie format (.webm)">SAVE</button>
+    </div>
+
+    <script src="{% static 'funcs.js' %}"></script>
+    <script src="{% static 'classes.js' %}"></script>
+    <script src="{% static 'scripts.js' %}"></script>
+    <script src="{% static 'interview.js' %}"></script>
+    <script src="{% static 'extra.js' %}"></script>
+    <script src="{% static 'events.js' %}"></script>
+</body>
+
+</html>
