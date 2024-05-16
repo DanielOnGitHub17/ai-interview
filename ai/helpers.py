@@ -1,11 +1,12 @@
 import json
+import os
 from datetime import datetime
 
 import google.generativeai as genai # type: ignore
 
 
-with open("../config.json") as file:
-    genai.configure(api_key=json.load(file)["GOOGLE_API_KEY"])
+with open("config.json") as file:
+    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # make all a class later
 
@@ -19,13 +20,13 @@ more_queries = "your response should be straightforward. "\
                 "be a bit interactive."
 
 def get_config():
-    with open("../config.json") as file:
+    with open("config.json") as file:
         return json.load(file)
     
 def save_config(config, **kwargs):
     for prop in kwargs:
         config[prop] = kwargs[prop]
-    with open("../config.json", 'w') as file:
+    with open("config.json", 'w') as file:
         json.dump(config, file)
     
 
