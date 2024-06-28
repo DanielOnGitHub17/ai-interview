@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'webint.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-Databases = {}
+DATABASES = {}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
