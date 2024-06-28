@@ -16,7 +16,8 @@ Also, the web interface is straightforward, replacing traditional modals, provid
 
 <h3>Furthermore, I also included the following features using a Django backend and the Gemini API.</h3>
 
-- Rewrite: Maybe an input/output is much more understandable when written in different ways.
-- Resay: Understand interview questions better by telling the AI to say it differently.
-- Save as text: A video might be too much, converting it to a tabular for would be crucial in some circumstances.
-- Generate questions: Instead of having users add questions manually, I would like them to provide some text or a topic from which I can generate questions.
+- Generate questions: 
+- Rewrite: Rewrite provided questions in different ways.
+- Resay: Understand interview questions better by making the AI say it differently.
+- Save as text: Use speech to text to convert spoken answers to text and map them to questions.
+- Share: Generate a link to an interesting set of questions you compiled.
