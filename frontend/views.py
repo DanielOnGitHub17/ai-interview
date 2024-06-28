@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 # from share.forms import InterviewForm
@@ -5,6 +7,7 @@ from django.http import HttpResponse, Http404
 def app_view(request):
     # return HttpResponse("Testing AI Interview")
     context = {
+        "api_key": os.getenv("GOOGLE_API_KEY"),
         # "share_form": InterviewForm(),
     }
     return render(request, "index.html", context)

@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-=cldztbc4jg&xl0!x673!*v2_=p$$eu)=7*f#d0#zs$44xx-h^
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app", ".now.sh"]#, "ai-interview-zeta.vercel.app"]
-
-CSRF_TRUSTED_ORIGINS = []
+# https://*.vercel.app''
+CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "https://ai-interview-*.vercel.app"]
 
 
 # Application definition
@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # "webint",
+    "webint",
     "frontend",
-    # "ai",
+    "ai",
     # "share",
 ]
 
