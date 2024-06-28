@@ -14,11 +14,9 @@ Also, the web interface is straightforward, replacing traditional modals, provid
 - **Audio API:** Syncing microphone and speaker audio, essentially inventing a way to store browser's speechSynthesis.speak output.
 - **MediaRecorder API:** Recording media streams.
 
-I aim to build a Django backend and incorporate the Gemini API in the coming days.
-<h3>Furthermore, I intend to include the following features.</h3>
+<h3>Furthermore, I also included the following features using a Django backend and the Gemini API.</h3>
 
-- Rewrite: Maybe an input/output feels better when written in a certain way.
+- Rewrite: Maybe an input/output is much more understandable when written in different ways.
 - Resay: Understand interview questions better by telling the AI to say it differently.
 - Save as text: A video might be too much, converting it to a tabular for would be crucial in some circumstances.
 - Generate questions: Instead of having users add questions manually, I would like them to provide some text or a topic from which I can generate questions.
-- PDF/Image parsing: Why copy and paste when you can just upload a document.
