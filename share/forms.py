@@ -1,9 +1,9 @@
-from django.forms import ModelForm
+# from django.forms import ModelForm
 
-from .models import Interview
+# from .models import Interview
 
-class InterviewForm(ModelForm):
+# class InterviewForm(ModelForm):
     
-    class Meta:
-        model = Interview
-        fields = ["questions", "text_before", "text_after"]
+#     class Meta:
+#         model = Interview
+#         fields = ["questions", "text_before", "text_after"]

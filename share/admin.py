@@ -1,7 +1,7 @@
-from django.contrib import admin
+# from django.contrib import admin
 
 # Register your models here.
 
-from .models import Interview
+# from .models import Interview
 
-admin.site.register(Interview)
+# admin.site.register(Interview)
