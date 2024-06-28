@@ -4,11 +4,7 @@ from datetime import datetime
 
 import google.generativeai as genai # type: ignore
 
-def get_config():
-    with open("config.json") as file:
-        return json.load(file)
-
-genai.configure(api_key=get_config()["GOOGLE_API_KEY"])
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # make all a class later
 interview_model = genai.GenerativeModel("gemini-pro")
 more_queries = "your response should be straightforward. "\
@@ -18,6 +14,10 @@ more_queries = "your response should be straightforward. "\
                 "{questions: [...]}. "\
                 "add nothing else to the answer. "\
                 "be a bit interactive."
+
+def get_config():
+    with open("config.json") as file:
+        return json.load(file)
     
 def save_config(config, **kwargs):
     for prop in kwargs:
