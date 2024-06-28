@@ -81,11 +81,9 @@ WSGI_APPLICATION = 'webint.wsgi.app'
 
 DATABASES = {
     'default': {
+        "NAME": "eod-ai-interview-db",
         'ENGINE': 'django.db.backends.postgresql',
         'URL': os.getenv("DATABASE_URL"),
-        'OPTIONS': {
-            'service': 'postgres',
-        },
     }
 }
 
