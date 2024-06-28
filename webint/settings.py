@@ -81,11 +81,22 @@ WSGI_APPLICATION = 'webint.wsgi.app'
 
 DATABASES = {
     'default': {
-        "NAME": "eod-ai-interview-db",
         'ENGINE': 'django.db.backends.postgresql',
-        'URL': os.getenv("DATABASE_URL"),
+        'NAME': os.environ.get('POSTGRES_DATABASE'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': 5432,
     }
 }
+# POSTGRES_URL="************"
+# POSTGRES_PRISMA_URL="************"
+# POSTGRES_URL_NO_SSL="************"
+# POSTGRES_URL_NON_POOLING="************"
+# POSTGRES_USER="************"
+# POSTGRES_HOST="************"
+# POSTGRES_PASSWORD="************"
+# POSTGRES_DATABASE="************"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
