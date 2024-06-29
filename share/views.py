@@ -25,8 +25,7 @@ class Saved(View):
         except Exception as error:
             handle_error(error)
             return redirect('/')
-        url = request.build_absolute_uri()
-        return message_home(request, f"{url}")
+        return message_home(request, request.build_absolute_uri())
     
     def post(self, request):
         try:
