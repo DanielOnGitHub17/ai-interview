@@ -8,13 +8,15 @@ from datetime import datetime
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # make all a class later
 interview_model = genai.GenerativeModel("gemini-pro")
-more_queries = "your response should be straightforward. "\
+more_queries = ". Your response should be straightforward. "\
                 "Do not go too broad. "\
-                "the questions should not start with 'WH'. "\
-                "Give the answer in json array of strings. "\
+                "The questions should not start with 'WH'. "\
+                "return the answer in json array of strings. "\
+                "Make sure you return a valid json array. "\
+                "Escape apostrophes in strings as required. "\
                 "['question1', 'question2', ...]. "\
-                "add nothing else to the answer. "\
-                "be a bit interactive."
+                "Add nothing else to the answer. "\
+                "Be a bit interactive."
 
 def save_config(config, **kwargs):
     for prop in kwargs:
@@ -54,7 +56,9 @@ def rewrite_all(questions, number):
             "none of your answers can be the same as the question I provide. "
             "return your answer in a json format. "
             ". whereby your return value is a list of lists containing strings, "
-            f"and your return value's length is the same as that in {questions}"
+            f"and your return value's length is the same as that in {questions}. "
+            "Make sure you return a valid json array. "
+            "Escape apostrophes in strings as required. "
         ).text)
 
 def remove_outliers(text):
