@@ -1,8 +1,9 @@
+import google.generativeai as genai
 import json
 import os
-from datetime import datetime
 
-import google.generativeai as genai # type: ignore
+from .models import config
+from datetime import datetime
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # make all a class later
@@ -14,31 +15,24 @@ more_queries = "your response should be straightforward. "\
                 "{questions: [...]}. "\
                 "add nothing else to the answer. "\
                 "be a bit interactive."
-
-def get_config():
-    with open("config.json") as file:
-        return json.load(file)
-    
-def save_config(config, **kwargs):
+   
+def save_config(**kwargs):
     for prop in kwargs:
-        config[prop] = kwargs[prop]
-    with open("config.json", 'w') as file:
-        json.dump(config, file)
-    
+        setattr(config, prop, kwargs[prop])
+    config.save()
 
 def can_use():
-    config = get_config()
-    now, last_used = datetime.now().timestamp(), config["last_used"]
+    now, last_used = datetime.now().timestamp(), config.last_used
     time_past = now - last_used
-    usage = config["usage"] 
+    usage = config.usage
     if datetime.fromtimestamp(last_used).date() != datetime.now().date():
         # reset usage: another day
-        save_config(config, usage=0)
+        save_config(usage=0)
     # used in the past 40 seconds or usage is okay for today
     if time_past < 40 or usage >= 40:
         return False
     # reset last_used as last called
-    save_config(config, last_used=datetime.now().timestamp(), usage=usage+1)
+    save_config(last_used=datetime.now().timestamp(), usage=usage+1)
     return True
     
 
