@@ -23,7 +23,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path("", include("frontend.urls"), name="Front-End View"),
     path("ai/", include("ai.urls"), name="AI Prowess"),
-    # path("share/", include("share.urls"), name="Shared Interviews"),
+    path("share/", include("share.urls"), name="Shared Interviews"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
