@@ -89,6 +89,7 @@ DATABASES = {
         'PORT': os.environ.get('PGPORT'),
     }
 }
+# Try to connect to Vercel's own PostgreSQL - then tell others how to do it.
 # POSTGRES_URL="************"
 # POSTGRES_PRISMA_URL="************"
 # POSTGRES_URL_NO_SSL="************"
