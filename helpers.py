@@ -9,3 +9,5 @@ def message_home(request, message=""):
         "message": message
     }
     return render(request, "index.html", context)
+
+# ADD a timer to the interview interface
