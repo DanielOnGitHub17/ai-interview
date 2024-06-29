@@ -2,14 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 
-# Create your views here.
 import json
 # from random import random
 from .helpers import questions_from_text, questions_from_topic, rewrite_all
 from helpers import handle_error
-
-# Both views assumes that Gemini returns perfect json/false
-# Views are like APIs, I should probably make them JSONViews - for specialization
 
 class QuestionsFrom(View):
     def post(self, request):
@@ -17,10 +13,11 @@ class QuestionsFrom(View):
         try:
             details = json.loads(request.body)
             number = details["number"]
-            if "topic" in details:
-                result = questions_from_topic(details["topic"], number)
-            elif "text" in details:
-                result = questions_from_text(details["text"], number)
+            for content in ("topic", "text"):
+                if content in details:
+                    result = eval(f"questions_from_{content}")(details[content], number)
+                    # Could try loadsing result to see if valid
+                    break
             else:
                 result = "Passed"
         except Exception as error:
