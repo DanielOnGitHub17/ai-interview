@@ -52,7 +52,7 @@ function setupAIQuestions() {
                 checkResponse(response, ["Passed", "Failed"])
                 .then(()=>{
                     alert("Questions will now be added");
-                    Interview.generateQuestions(response.obj["questions"]);
+                    Interview.generateQuestions(response.obj);
                 }).catch(error=>{
                     console.log(error);
                     alert("Failed to generate questions!");
