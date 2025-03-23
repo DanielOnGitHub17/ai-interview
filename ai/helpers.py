@@ -1,13 +1,13 @@
-import google.generativeai as genai
+from google import genai
 import json
 import os
 
 from .models import ConfigDetails
 from datetime import datetime
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 # make all a class later
-interview_model = genai.GenerativeModel("gemini-pro")
+
 more_queries = ". Your response should be straightforward. "\
                 "Do not go too broad. "\
                 "The questions should not start with 'WH'. "\
@@ -17,6 +17,14 @@ more_queries = ". Your response should be straightforward. "\
                 "['question1', 'question2', ...]. "\
                 "Add nothing else to the answer. "\
                 "Be a bit interactive."
+
+
+def ask_gemini(question):
+  response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents=question,
+  )
+  return response.text
 
 def save_config(config, **kwargs):
     for prop in kwargs:
@@ -40,18 +48,21 @@ def can_use():
     
 
 def questions_from_topic(topic, number):
-    return can_use() and remove_outliers(interview_model.generate_content(
+    return can_use() and remove_outliers(
+      ask_gemini(
         f"Generate {number} questions on the topic '{topic}'" + more_queries
-    ).text)
+    ))
     
 def questions_from_text(text, number):
-    return can_use() and remove_outliers(interview_model.generate_content(
+    return can_use() and remove_outliers(
+      ask_gemini(
         f"Generate {number} questions on this text: {text}" + more_queries
-    ).text)
+    ))
 
 
 def rewrite_all(questions, number):
-    return can_use() and remove_outliers(interview_model.generate_content(
+    return can_use() and remove_outliers(
+      ask_gemini(
             f"Rewrite each question in {questions} in {number} different ways, keeping the meaning of each. "
             "none of your answers can be the same as the question I provide. "
             "return your answer in a json format. "
@@ -59,7 +70,7 @@ def rewrite_all(questions, number):
             f"and your return value's length is the same as that in {questions}. "
             "Make sure you return a valid json array. "
             "Escape apostrophes in strings as required. "
-        ).text)
+      ))
 
 def remove_outliers(text):
     return text[text.find('[') : text.rfind(']')+1]
