@@ -1,11 +1,9 @@
-from google import genai
 import json
 import os
 
 from .models import ConfigDetails
 from datetime import datetime
 
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 # make all a class later
 
 more_queries = ". Your response should be straightforward. "\
@@ -20,6 +18,8 @@ more_queries = ". Your response should be straightforward. "\
 
 
 def ask_gemini(question):
+  from google import genai
+  client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
   response = client.models.generate_content(
     model="gemini-2.0-flash",
     contents=question,
