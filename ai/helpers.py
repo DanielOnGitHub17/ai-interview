@@ -1,12 +1,11 @@
-import json
 import os
+
+from google import genai
 
 from .models import ConfigDetails
 from datetime import datetime
 
-# make all a class later
-
-more_queries = ". Your response should be straightforward. "\
+MORE_QUERIES = ". Your response should be straightforward. "\
                 "Do not go too broad. "\
                 "The questions should not start with 'WH'. "\
                 "return the answer in json array of strings. "\
@@ -16,11 +15,10 @@ more_queries = ". Your response should be straightforward. "\
                 "Add nothing else to the answer. "\
                 "Be a bit interactive."
 
+CLIENT = genai.Client()
 
 def ask_gemini(question):
-  from google import genai
-  client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-  response = client.models.generate_content(
+  response = CLIENT.models.generate_content(
     model="gemini-2.0-flash",
     contents=question,
   )
@@ -45,20 +43,18 @@ def can_use():
     # reset last_used as last called
     save_config(config, last_used=datetime.now().timestamp(), usage=usage+1)
     return True
-    
 
 def questions_from_topic(topic, number):
     return can_use() and remove_outliers(
       ask_gemini(
-        f"Generate {number} questions on the topic '{topic}'" + more_queries
+        f"Generate {number} questions on the topic '{topic}'" + MORE_QUERIES
     ))
     
 def questions_from_text(text, number):
     return can_use() and remove_outliers(
       ask_gemini(
-        f"Generate {number} questions on this text: {text}" + more_queries
+        f"Generate {number} questions on this text: {text}" + MORE_QUERIES
     ))
-
 
 def rewrite_all(questions, number):
     return can_use() and remove_outliers(
