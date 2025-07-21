@@ -5,6 +5,12 @@ __pycache__
 db.sqlite3
 media
 
+# Database files
+test_*.sqlite3
+*.db
+*.sqlite
+*.sqlite3
+
 # Environments 
 .env 
 .venv 
@@ -12,4 +18,7 @@ env/
 venv/ 
 ENV/ 
 env.bak/ 
-venv.bak/ 
+venv.bak/
+
+# Static files
+staticfiles_build/
