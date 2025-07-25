@@ -4,6 +4,8 @@ onload=()=>{
     identify();
     // make LOADING DIV
     loader();
+    // hide the error text if it is empty
+    hideErrorText();
     // show only SETUP
     switchScreen("SETUP");
     // restore saved questions

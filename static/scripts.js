@@ -128,6 +128,12 @@ function createVoiceSearchUI(){
     );
 };
 
+// Something to hide the #ERRORS if it doesn't contain text
+function hideErrorText(){
+    show(ERRORS);
+    !ERRORS.textContent.trim() && hide(ERRORS);
+};
+
 // set some things for CONTROLS
 Object.defineProperty(CONTROLS, "layout", {
     get: function () { return CONTROLS.classList.contains("side") },
