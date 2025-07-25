@@ -17,6 +17,7 @@ class Question{
             ,    add(this.box = make("li"), QUESTIONLIST)
         ).value = this._question;
         this.text.type = "text";
+        this.text.title = "Ctrl + Enter to add a new question";
 
         ["mover", "deleter"].forEach((type, i)=>{
             reclass(add(
