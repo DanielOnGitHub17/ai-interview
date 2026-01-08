@@ -1,0 +1,6 @@
+asgiref
+Django
+google-genai
+psycopg2-binary
+python-dotenv
+whitenoise
