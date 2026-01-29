@@ -1,10 +1,12 @@
 import os
 
 from google import genai
+from dotenv import load_dotenv
 
 from .models import ConfigDetails
 from datetime import datetime
 
+load_dotenv()
 MORE_QUERIES = ". Your response should be straightforward. "\
                 "Do not go too broad. "\
                 "The questions should not start with 'WH'. "\
@@ -19,7 +21,7 @@ CLIENT = genai.Client()
 
 def ask_gemini(question):
   response = CLIENT.models.generate_content(
-    model="gemini-2.0-flash",
+    model=os.getenv("GEMINI_MODEL"),
     contents=question,
   )
   return response.text
