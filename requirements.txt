@@ -4,7 +4,7 @@ asgiref==3.9.1
 cachetools==5.5.2
 certifi==2025.8.3
 charset-normalizer==3.4.3
-Django==5.2.9
+Django==5.2.11
 dotenv==0.9.9
 google-auth==2.40.3
 google-genai==1.29.0
